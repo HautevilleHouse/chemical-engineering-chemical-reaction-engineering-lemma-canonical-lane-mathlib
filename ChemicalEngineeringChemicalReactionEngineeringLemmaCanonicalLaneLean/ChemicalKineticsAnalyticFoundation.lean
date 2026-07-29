@@ -1,0 +1,26 @@
+import canonicalLaneMathlib.AdmissibleClass
+import ChemicalEngineeringChemicalReactionEngineeringLemmaCanonicalLaneLean.ReactionKineticsPackage
+import ChemicalEngineeringChemicalReactionEngineeringLemmaCanonicalLaneLean.MolecularOrbitalTheory
+import ChemicalEngineeringChemicalReactionEngineeringLemmaCanonicalLaneLean.ThermodynamicsEquilibrium
+
+namespace HautevilleHouse
+namespace ChemicalEngineeringChemicalReactionEngineeringLemmaCanonicalLaneLean
+
+structure ChemicalKineticsAnalyticFoundation where
+  kinetics : ReactionKineticsPackage
+  kineticsEvidence : ReactionKineticsEvidence kinetics
+  orbitalTheory : MolecularOrbitalTheoryPackage
+  orbitalTheoryEvidence : MolecularOrbitalTheoryEvidence orbitalTheory
+  thermodynamics : ThermodynamicsEquilibriumPackage
+  thermodynamicsEvidence : ThermodynamicsEquilibriumEvidence thermodynamics
+
+def ChemicalKineticsAnalyticFoundationClosed (A : ChemicalKineticsAnalyticFoundation) : Prop :=
+  ReactionKineticsClosed A.kinetics ∧ MolecularOrbitalTheoryClosed A.orbitalTheory ∧ ThermodynamicsEquilibriumClosed A.thermodynamics
+
+theorem chemical_kinetics_analytic_foundation_closed_from_evidence (A : ChemicalKineticsAnalyticFoundation) : ChemicalKineticsAnalyticFoundationClosed A := by
+  refine And.intro (reaction_kinetics_closed_from_evidence A.kinetics A.kineticsEvidence)
+    (And.intro (molecular_orbital_theory_closed_from_evidence A.orbitalTheory A.orbitalTheoryEvidence)
+      (thermodynamics_equilibrium_closed_from_evidence A.thermodynamics A.thermodynamicsEvidence))
+
+end ChemicalEngineeringChemicalReactionEngineeringLemmaCanonicalLaneLean
+end HautevilleHouse
